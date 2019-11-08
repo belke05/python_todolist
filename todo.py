@@ -17,6 +17,11 @@ class todo_crud():
         self.ongoingtodos.remove(removetodo)
         print(self.ongoingtodos, "removed", removetodo)
 
+    def addToCompleted(self, completedtodo):
+        self.removeTodo(completedtodo)
+        self.completedtodos.append(completedtodo)
+        self.createNewtodo()
+
     def createNewtodo(self):
         ongoing_count = len(self.ongoingtodos)
         completed_count = len(self.completedtodos)
@@ -30,28 +35,46 @@ class todo_crud():
         self.updated_todo = self.updated_todo.to_csv(r"D:/jedha/todo_app/todolist.csv", sep=',', index=False)
 
     def showOngoing(self):
-        print(self.ongoingtodos)
+        cleanedList = [x for x in self.ongoingtodos if isinstance(x, str)]
+        print(cleanedList)
 
     def showCompleted(self):
-        print(self.completedtodos)
+        cleanedList = [x for x in self.completedtodos if isinstance(x, str)]
+        print(cleanedList)
+
+    def clearCompleted(self):
+        ongoing_count = len(self.ongoingtodos)
+        clearCompleted = []
+        completed_count = len(clearCompleted)
+        while completed_count < ongoing_count:
+            completed_count += 1
+            clearCompleted.append(np.nan)
+        self.updated_todo = pd.DataFrame(data={"ongoing": self.ongoingtodos, "completed": clearCompleted})
+        self.updated_todo = self.updated_todo.to_csv(r"D:/jedha/todo_app/todolist.csv", sep=',', index=False)
 
 
 mylist = todo_crud('todolist.csv')
 
 try:
-    addOrComplete = sys.argv[1]
-    if addOrComplete == "add":
+    method = sys.argv[1]
+    if method == "add":
         todo = sys.argv[2]
         mylist.addTodo(todo)
         mylist.createNewtodo()
-    elif addOrComplete == "remove":
+    elif method == "remove":
         todo = sys.argv[2]
         mylist.removeTodo(todo)
         mylist.createNewtodo()
-    elif addOrComplete == "completed":
+    elif method == "completed":
         mylist.showCompleted()
-    elif addOrComplete == "ongoing":
+    elif method == "ongoing":
         mylist.showOngoing()
+    elif method == "clearcompleted":
+        mylist.clearCompleted()
+    elif method == "addcompleted":
+        todo = sys.argv[2]
+        mylist.addToCompleted(todo)
+
 except:
     print('no arguments provided')
 '''
