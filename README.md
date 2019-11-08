@@ -1,7 +1,13 @@
-# python_todolist
+# command line python_todolist
 
 
-specify a csv with ongoing and completed todo columns 
-from the command line you can show ongoing / show completed
-add to ongoing and remove from ongoing 
+Class based syntax to modify a csv todolist 
+functions include 
+  <ul>
+  <li>add todo to ongoing</li>
+  <li>remove todo from ongoing</li>
+  <li>put ongoing todo in to completed</li>
+  <li>clear completed todos</li>
+  </ul>
+
 
